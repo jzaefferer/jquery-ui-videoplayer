@@ -15,6 +15,13 @@
 .controls {
 	position: absolute;
 	bottom: 0;
+	width: 500px;
+}
+.volume {
+	width: 5em;
+	position: absolute;
+	right: .5em;
+	top: 1em;
 }
 /* TODO load from jquery.ui.popup.css */
 .ui-popup {

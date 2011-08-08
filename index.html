@@ -14,6 +14,7 @@
 	<script src="jquery-ui/ui/jquery.ui.button.js"></script>
 	<script src="jquery-ui/ui/jquery.ui.menu.js"></script>
 	<script src="jquery-ui/ui/jquery.ui.popup.js"></script>
+	<script src="jquery-ui/ui/jquery.ui.slider.js"></script>
 	<script src="jquery-ui/ui/jquery.effects.core.js"></script>
 	<script src="jquery-ui/ui/jquery.effects.blind.js"></script>
 	<link rel="stylesheet" href="jquery-ui/demos/demos.css">
@@ -21,7 +22,7 @@
 	<script>
 	$(function() {
 		function notify( input ) {
-			var msg = "Selected " + $.trim( input.data( "tooltip-title" ) || input.text() );
+			var msg = "Selected " + $.trim( input.data && input.data( "tooltip-title" ) || (input.text && input.text()) || input);
 			$( "<div>" )
 				.appendTo( document.body )
 				.text( msg )
@@ -113,6 +114,13 @@
 		}).delegate("a", "click", function() {
 			$(".player .title").text("Now playing: " + $(this).text());
 		});
+
+		$(".volume").slider({
+			step: 10,
+			stop: function(event, ui) {
+				notify("Set volume to " + ui.value + "%");
+			}
+		});
 	});
 	</script>
 </head>
@@ -126,6 +134,8 @@
 		<button data-icon="ui-icon-seek-prev">Rewind</button>
 		<button data-icon="ui-icon-play" id="play">Play</button>
 		<button data-icon="ui-icon-seek-next">Fast forward</button>
+
+		<div class="volume"></div>
 	</div>
 </div>
 <div class="tools">
