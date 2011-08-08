@@ -1,3 +1,22 @@
+/* customize base them a bit */
+.ui-button {
+	box-shadow: 0 1px 3px #ddd;
+	font-weight: bold;
+	border-color: #ccc;
+	text-shadow: 0 1px 0 white;
+	background: -moz-linear-gradient(bottom,#DDD,#F8F8F8);
+	background: -webkit-gradient(linear,center bottom,center top,from(#DDD),to(#F8F8F8));
+}
+.ui-button.ui-state-hover {
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75);
+	border-color: #0064AE!important;
+	background: -moz-linear-gradient(bottom,#0064AE,#478EE8);
+	background: -webkit-gradient(linear,center bottom,center top,from(#0064AE),to(#478EE8));
+}
+.ui-button.ui-state-hover span {
+	color: white;
+}
+
 .playing {
 	background: rgb(110, 110, 110);
 }
@@ -45,7 +64,7 @@
 }
 .playlist {
 	position: absolute;
-	top: 0;
+	top: 4em;
 	left: 550px;
 }
 .playlist ul {
@@ -71,9 +90,15 @@
 	top: 0;
 	height: 2em;
 	display: none;
+	cursor: move;
 }
 .playlist a {
 	text-decoration: none;
 	display: block;
 	height: 3em;
+}
+
+#bar1 {
+	width: 500px;
+	margin-bottom: 1em;
 }

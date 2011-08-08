@@ -13,6 +13,7 @@
 	<script src="jquery-ui/ui/jquery.ui.tooltip.js"></script>
 	<script src="jquery-ui/ui/jquery.ui.button.js"></script>
 	<script src="jquery-ui/ui/jquery.ui.menu.js"></script>
+	<script src="jquery-ui/ui/jquery.ui.menubar.js"></script>
 	<script src="jquery-ui/ui/jquery.ui.popup.js"></script>
 	<script src="jquery-ui/ui/jquery.ui.slider.js"></script>
 	<script src="jquery-ui/ui/jquery.effects.core.js"></script>
@@ -121,12 +122,36 @@
 				notify("Set volume to " + ui.value + "%");
 			}
 		});
+
+		$("#bar1").menubar();
 	});
 	</script>
 </head>
 <body>
 
 <div class="demo">
+
+<ul id="bar1" class="menubar">
+	<li>
+		<a href="#File">File</a>
+		<ul>
+			<li><a href="#Open...">Open...</a></li>
+			<li class="ui-state-disabled">Open recent...</li>
+			<li><a href="#Save">Save</a></li>
+			<li><a href="#Save as...">Save as...</a></li>
+			<li><a href="#Close">Close</a></li>
+			<li><a href="#Quit">Quit</a></li>
+		</ul>
+	</li>
+	<li>
+		<a href="#Edit">Edit</a>
+		<ul>
+			<li><a href="#Copy">Copy</a></li>
+			<li><a href="#Cut">Cut</a></li>
+			<li class="ui-state-disabled">Paste</li>
+		</ul>
+	</li>
+</ul>
 
 <div class="player">
 	<span class="title">Select a track on the right</span>
