@@ -1,1 +1,169 @@
-<h1>Coming soon!</h1>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Tooltip - Video Player demo</title>
+	<link rel="stylesheet" href="jquery-ui/themes/base/jquery.ui.all.css">
+	<script src="jquery-ui/jquery-1.6.2.js"></script>
+	<script src="jquery-ui/ui/jquery.ui.core.js"></script>
+	<script src="jquery-ui/ui/jquery.ui.widget.js"></script>
+	<script src="jquery-ui/ui/jquery.ui.mouse.js"></script>
+	<script src="jquery-ui/ui/jquery.ui.sortable.js"></script>
+	<script src="jquery-ui/ui/jquery.ui.position.js"></script>
+	<script src="jquery-ui/ui/jquery.ui.tooltip.js"></script>
+	<script src="jquery-ui/ui/jquery.ui.button.js"></script>
+	<script src="jquery-ui/ui/jquery.ui.menu.js"></script>
+	<script src="jquery-ui/ui/jquery.ui.popup.js"></script>
+	<script src="jquery-ui/ui/jquery.effects.core.js"></script>
+	<script src="jquery-ui/ui/jquery.effects.blind.js"></script>
+	<link rel="stylesheet" href="jquery-ui/demos/demos.css">
+	<link rel="stylesheet" href="demo.css">
+	<script>
+	$(function() {
+		function notify( input ) {
+			var msg = "Selected " + $.trim( input.data( "tooltip-title" ) || input.text() );
+			$( "<div>" )
+				.appendTo( document.body )
+				.text( msg )
+				.addClass( "notification ui-state-default ui-corner-bottom" )
+				.position({
+					my: "center top",
+					at: "center top",
+					of: window
+				})
+				.show({
+					effect: "blind"
+				})
+				.delay( 1000 )
+				.hide({
+					effect: "blind",
+					duration: "slow"
+				}, function() {
+					$( this ).remove();
+				});
+		}
+		$( ".tools ul" ).menu({
+			select: function( event, ui ) {
+				// TODO should probably be handled by popup, see ESCAPE key handler
+				// affects key handling
+				$( this ).prev().focus();
+				notify( ui.item );
+			}
+		}).popup();
+
+		$( "button" ).each(function() {
+			var button = $( this ).button({
+				icons: {
+					primary: $( this ).data( "icon" )
+				},
+				text: !!$( this ).attr( "title" )
+			});
+			if ( button.next().is( ":ui-popup" ) ) {
+				button.click(function( event ) {
+					$( ".demo" ).tooltip( "close", event );
+				});
+			} else {
+				button.click(function() {
+					notify( button );
+				});
+			}
+		});
+		$( ".set" ).buttonset({
+			items: "button"
+		});
+
+		$( ".demo" ).tooltip({
+			position: {
+				my: "center top",
+				at: "center bottom+5",
+			},
+			show: {
+				duration: "fast"
+			},
+			hide: {
+				effect: "hide"
+			}
+		});
+
+		var playing = false;
+		$(".player").hover(function() {
+			if (!playing) {
+				return;
+			}
+			$(this).find(".controls").slideDown();
+		}, function() {
+			if (!playing) {
+				return;
+			}
+			$(this).find(".controls").slideUp();
+		});
+		$("#play").toggle(function() {
+			playing = true;
+			$("body").addClass("playing");
+			$(this).button("option", "icons.primary", "ui-icon-pause");
+		}, function() {
+			playing = false;
+			$("body").removeClass("playing");
+			$(this).button("option", "icons.primary", "ui-icon-play");
+		});
+
+		$(".playlist li").append("<span class='handle'>");
+		$(".playlist ul").sortable({
+			handle: ".handle"
+		}).delegate("a", "click", function() {
+			$(".player .title").text("Now playing: " + $(this).text());
+		});
+	});
+	</script>
+</head>
+<body>
+
+<div class="demo">
+
+<div class="player">
+	<span class="title">Select a track on the right</span>
+	<div class="controls">
+		<button data-icon="ui-icon-seek-prev">Rewind</button>
+		<button data-icon="ui-icon-play" id="play">Play</button>
+		<button data-icon="ui-icon-seek-next">Fast forward</button>
+	</div>
+</div>
+<div class="tools">
+	<span class="set">
+		<button data-icon="ui-icon-circle-arrow-n" title="I like this">Like</button>
+		<button data-icon="ui-icon-circle-arrow-s">I dislike this</button>
+	</span>
+	<div class="set">
+		<button data-icon="ui-icon-circle-plus" title="Add to Watch Later">Add to</button>
+		<button class="menu" data-icon="ui-icon-triangle-1-s">Add to favorites or playlist</button>
+		<ul>
+			<li>
+				<a href="#">Favorites</a>
+			</li>
+			<li>
+				<a href="#">Watch Later</a>
+			</li>
+			<li>
+				<a href="#">New Playlist...</a>
+			</li>
+		</ul>
+	</div>
+	<button title="Share this video">Share</button>
+	<button data-icon="ui-icon-alert">Flag as inappropiate</button>
+</div>
+
+<div class="playlist">
+	<h3>Playlist</h3>
+	<ul>
+		<li><a href="#song1">Song 1</a></li>
+		<li><a href="#song2">Song 2</a></li>
+		<li><a href="#song3">Song 3</a></li>
+		<li><a href="#song4">Song 4</a></li>
+		<li><a href="#song5">Song 5</a></li>
+	</ul>
+</div>
+
+</div>
+
+</body>
+</html>
